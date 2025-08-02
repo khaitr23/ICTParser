@@ -27,7 +27,7 @@ jobs:
         pip install pyinstaller
 
     - name: Package Application
-      run: pyinstaller ICTParser.spec
+      run: pyinstaller --onefile --noconsole ICTParser.py
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
