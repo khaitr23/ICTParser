@@ -29,7 +29,7 @@ class ICTParser(tk.Tk):
             messagebox.showerror("Error", "Folder cannot be empty. Please select another.")
             return
         self.log_folder_path = path
-        filepaths = [os.path.join(path, fn) for fn in os.listdir(path)]
+        filepaths = [os.path.join(path, fn) for fn in os.listdir(path) if not fn.startswith('.')]
         try:
             cols, rows, limits, failures = aggregate_results(filepaths)
         except Exception as e:
@@ -53,8 +53,8 @@ class ICTParser(tk.Tk):
         self.search_left = tk.StringVar()
         self.search_right = tk.StringVar()
 
-        left_search = ttk.Entry(top_frame, textvariable=self.search_left, foreground='grey')
-        right_search = ttk.Entry(top_frame, textvariable=self.search_right, foreground='grey')
+        left_search = ttk.Entry(top_frame, textvariable=self.search_left)
+        right_search = ttk.Entry(top_frame, textvariable=self.search_right)
 
         left_search.insert(0, "Search Available...")
         right_search.insert(0, "Search Selected...")
@@ -62,7 +62,6 @@ class ICTParser(tk.Tk):
         def on_focus_in(event, placeholder):
             if event.widget.get() == placeholder:
                 event.widget.delete(0, tk.END)
-            event.widget.configure(foreground='white')
 
         def on_focus_out(event, placeholder):
             if not event.widget.get():

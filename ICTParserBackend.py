@@ -27,7 +27,7 @@ def parse_ict_log(filepath):
     - results: dict {column_name: measured_value}
     - limits: dict {column_name: (upper, lower)}
     """
-    with open(filepath, 'r', encoding='latin-1') as f:
+    with open(filepath, 'r', encoding='utf-8') as f:
         text = f.read()
         #log_debug("File read: " + filepath)
 
@@ -190,7 +190,7 @@ if __name__ == '__main__':
     # Rename csv file as required
     out_csv = 'ICT_Parser_Result.csv'
 
-    filepaths = [os.path.join(log_folder, fn) for fn in os.listdir(log_folder)]
+    filepaths = [os.path.join(log_folder, fn) for fn in os.listdir(log_folder) if not fn.startswith('.')]
     columns, rows, limits = aggregate_results(filepaths)
     write_csv(out_csv, columns, rows, limits)
     log_debug(f"CSV written to {out_csv}")
