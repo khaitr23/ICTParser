@@ -88,7 +88,7 @@ def parse_ict_log(filepath):
             if passfail == '0':
                 results[colname] = value  # Only add passing tests to CSV
             else:
-                                # collect failure info
+                # collect failure info
                 failures.append({
                     'file': filepath,
                     'block': block_name,
