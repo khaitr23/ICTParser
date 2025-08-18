@@ -27,7 +27,7 @@ def parse_ict_log(filepath):
     - results: dict {column_name: measured_value}
     - limits: dict {column_name: (upper, lower)}
     """
-    with open(filepath, 'r', encoding='utf-8') as f:
+    with open(filepath, 'r', encoding='utf-8', errors='replace') as f:
         text = f.read()
         #log_debug("File read: " + filepath)
 

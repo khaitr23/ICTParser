@@ -20,8 +20,20 @@ class ICTParser(tk.Tk):
     def _show_folder_picker(self):
         for w in self.winfo_children():
             w.destroy()
-        choose_btn = ttk.Button(self, text="Choose Folder", command=self._on_choose_folder)
-        choose_btn.pack(expand=True, pady=20)
+        picker_frame = ttk.Frame(self)
+        picker_frame.pack(pady=(40,10), expand=True)
+
+        instruction = ttk.Label(
+            picker_frame,
+            text="Select the folder containing your ICT log files.\nAll log files to be parsed should be stored in this folder.",
+            wraplength=300,
+            justify="left"
+        )
+        instruction.pack(side="top", pady=(0,10))
+
+        # Choose Folder button (below)
+        choose_btn = ttk.Button(picker_frame, text="Choose Folder", command=self._on_choose_folder)
+        choose_btn.pack(side="top")
 
     def _on_choose_folder(self):
         path = filedialog.askdirectory(title="Select folder with log files")
