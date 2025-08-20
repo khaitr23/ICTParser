@@ -142,7 +142,7 @@ class ICTParser(tk.Tk):
         # warn if any failed tests were detected in the files parsed
         if getattr(self, 'failures', []):
             n = len(self.failures)
-            msg = f"There are {n} failed tests.\nIf needed, failed tests can be exported to another CSV."
+            msg = f"There are {n} failed tests.\nFailed tests can be optionally exported to another CSV."
             messagebox.showwarning("Failed Tests Found", msg)
 
         footer = ttk.Frame(self)
