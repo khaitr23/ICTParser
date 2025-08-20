@@ -14,7 +14,7 @@ class ICTParser(tk.Tk):
         self.rows = []
         self.limits = {}
         self.failures = []
-
+        self.export_failures = tk.BooleanVar(value=True)
         self._show_folder_picker()
 
     def _show_folder_picker(self):
@@ -142,11 +142,19 @@ class ICTParser(tk.Tk):
         # warn if any failed tests were detected in the files parsed
         if getattr(self, 'failures', []):
             n = len(self.failures)
-            msg = f"There are {n} failed tests.\nPassed/Failed tests will be exported to separate CSVs."
+            msg = f"There are {n} failed tests.\nIf needed, failed tests can be exported to another CSV."
             messagebox.showwarning("Failed Tests Found", msg)
 
         footer = ttk.Frame(self)
         footer.pack(fill="x", padx=10, pady=5)
+
+        fail_checkbox = ttk.Checkbutton(
+            footer,
+            text="Export failures to CSV",
+            variable=self.export_failures
+        )
+        fail_checkbox.pack(side="left", padx=5)
+
         ttk.Button(footer, text="Export CSV", command=self._on_export).pack(side="right")
 
     def _populate_listboxes(self):
@@ -226,9 +234,7 @@ class ICTParser(tk.Tk):
             except Exception as e:
                 messagebox.showerror("Passing-tests Export Failed", str(e))
         
-        # If there were failures, write them out too
-        if getattr(self, 'failures', []):
-            # place failure‐log next to CSV
+        if self.export_failures.get() and getattr(self, 'failures', []):
             base, _ = os.path.splitext(path)
             fail_path = base + "_failures.csv"
             try:

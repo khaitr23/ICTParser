@@ -105,7 +105,7 @@ def parse_ict_log(filepath):
                     ul, ll = '', ''
             elif limtype == '3':
                 if len(lims) >= 3:
-                    ll, ul = lims[1].strip(), lims[2].strip()
+                    ul, ll = lims[1].strip(), lims[2].strip()
                 else:
                     ul, ll = '', ''
             else:
